@@ -40,4 +40,5 @@ public class UserDAOImpl implements IUserDAO {
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
     }
+
 }

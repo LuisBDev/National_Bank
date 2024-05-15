@@ -27,13 +27,6 @@ public class UserController {
         return userService.findById(id);
     }
 
-//    @PostMapping("/save")
-//    public void save(@RequestBody User user)
-//    {
-//        userService.save(user);
-//    }
-
-
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestBody User user)
     {
