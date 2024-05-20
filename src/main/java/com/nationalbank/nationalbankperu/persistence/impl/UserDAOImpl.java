@@ -41,4 +41,9 @@ public class UserDAOImpl implements IUserDAO {
         return userRepository.existsByNumIdentification(numIdentification);
     }
 
+    @Override
+    public User findByNumIdentification(String numIdentification) {
+        return userRepository.findByNumIdentification(numIdentification);
+    }
+
 }

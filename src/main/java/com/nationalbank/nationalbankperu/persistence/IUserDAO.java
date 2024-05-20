@@ -17,4 +17,6 @@ public interface IUserDAO {
 
     boolean existsByNumIdentification(String numIdentification);
 
+    User findByNumIdentification(String numIdentification);
+
 }

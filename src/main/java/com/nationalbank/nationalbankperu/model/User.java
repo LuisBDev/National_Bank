@@ -22,7 +22,7 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String numIdentification;
-    
+
     @Column
     private String firstName;
 
@@ -38,6 +38,6 @@ public class User {
     @Column
     private Date birthDate;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 6)
     private String password;
 }

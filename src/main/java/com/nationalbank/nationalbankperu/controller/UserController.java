@@ -56,5 +56,15 @@ public class UserController {
         userService.deleteById(id);
     }
 
+    @GetMapping("/login")
+    public ResponseEntity<User> login(@RequestBody User user) {
 
+        boolean numIdentificationExists = userService.existsByNumIdentification(user.getNumIdentification());
+        User userToLogin = userService.findByNumIdentification(user.getNumIdentification());
+
+        if (numIdentificationExists && userToLogin.getPassword().equals(user.getPassword())) {
+            return ResponseEntity.ok(userToLogin);
+        } else {
+            return ResponseEntity.badRequest().body(null);
+        }
 }

@@ -10,4 +10,6 @@ public interface IUserRepository extends JpaRepository<User, Long> {
 
     boolean existsByNumIdentification(String numIdentification);
 
+    User findByNumIdentification(String numIdentification);
+
 }

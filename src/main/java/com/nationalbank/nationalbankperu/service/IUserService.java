@@ -17,5 +17,6 @@ public interface IUserService {
 
     boolean existsByNumIdentification(String numIdentification);
 
+    User findByNumIdentification(String numIdentification);
 
 }

@@ -43,4 +43,9 @@ public class UserServiceImpl implements IUserService {
     public boolean existsByNumIdentification(String username) {
         return userDAO.existsByNumIdentification(username);
     }
+
+    @Override
+    public User findByNumIdentification(String numIdentification) {
+        return userDAO.findByNumIdentification(numIdentification);
+    }
 }
