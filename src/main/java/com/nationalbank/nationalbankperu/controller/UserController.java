@@ -22,19 +22,16 @@ public class UserController {
 
     @GetMapping("/{id}")
     @ResponseBody
-    public User findById(@PathVariable Long id)
-    {
+    public User findById(@PathVariable Long id) {
         return userService.findById(id);
     }
 
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody User user)
-    {
-        boolean isUsernameExists = userService.existsByUsername(user.getUsername());
-        if (isUsernameExists) {
-            return ResponseEntity.badRequest().body("Error: Username ya existe en la bd!");
-            }
-        else {
+    public ResponseEntity<String> save(@RequestBody User user) {
+        boolean numIdentificationExists = userService.existsByNumIdentification(user.getNumIdentification());
+        if (numIdentificationExists) {
+            return ResponseEntity.badRequest().body("Error: NumIdentification ya existe en la bd!");
+        } else {
             userService.save(user);
             return ResponseEntity.ok("User saved successfully!");
         }
@@ -42,14 +39,12 @@ public class UserController {
 
     //Update user
     @PutMapping("/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody User user)
-    {
+    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody User user) {
         User userToUpdate = userService.findById(id);
         if (userToUpdate == null) {
             return ResponseEntity.badRequest().body("Error: User no encontrado!");
-        }
-        else {
-            userToUpdate.setUsername(user.getUsername());
+        } else {
+            userToUpdate.setNumIdentification(user.getNumIdentification());
             userToUpdate.setPassword(user.getPassword());
             userService.save(userToUpdate);
             return ResponseEntity.ok("User updated successfully!");
@@ -57,11 +52,9 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id)
-    {
+    public void deleteById(@PathVariable Long id) {
         userService.deleteById(id);
     }
-
 
 
 }

@@ -40,7 +40,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public boolean existsByUsername(String username) {
-        return userDAO.existsByUsername(username);
+    public boolean existsByNumIdentification(String username) {
+        return userDAO.existsByNumIdentification(username);
     }
 }

@@ -2,7 +2,7 @@ package com.nationalbank.nationalbankperu.persistence.impl;
 
 import com.nationalbank.nationalbankperu.model.Transaction;
 import com.nationalbank.nationalbankperu.persistence.ITransactionDAO;
-import com.nationalbank.nationalbankperu.repository.TransactionRepository;
+import com.nationalbank.nationalbankperu.repository.ITransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,27 +12,27 @@ import java.util.List;
 public class TransactionDAOImpl implements ITransactionDAO {
 
     @Autowired
-    private TransactionRepository transactionRepository;
+    private ITransactionRepository ITransactionRepository;
 
     @Override
     public List<Transaction> findAll() {
-        return transactionRepository.findAll();
+        return ITransactionRepository.findAll();
     }
 
     @Override
     public Transaction findById(Long id) {
-        return transactionRepository.findById(id).orElse(null);
+        return ITransactionRepository.findById(id).orElse(null);
     }
 
     @Override
     public void save(Transaction transaction) {
-        transactionRepository.save(transaction);
+        ITransactionRepository.save(transaction);
     }
 
     @Override
     public void deleteById(Long id) {
-        transactionRepository.deleteById(id);
+        ITransactionRepository.deleteById(id);
     }
-    
+
 
 }

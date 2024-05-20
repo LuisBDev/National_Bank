@@ -1,7 +1,6 @@
 package com.nationalbank.nationalbankperu.service;
 
 import com.nationalbank.nationalbankperu.model.User;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ public interface IUserService {
 
     void deleteById(Long id);
 
-    boolean existsByUsername(String username);
+    boolean existsByNumIdentification(String numIdentification);
 
 
 }

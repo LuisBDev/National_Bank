@@ -38,11 +38,14 @@ public class BankAccountController {
     }
 
     @PostMapping("/create/{userId}")
-    public ResponseEntity<String> createBankAccount(@PathVariable Long userId, @RequestBody BankAccount bankAccount) {
+    public ResponseEntity<String> createBankAccount(@PathVariable Long userId) {
         User user = userService.findById(userId);
         if (user == null) {
             return ResponseEntity.badRequest().body("Error: User not found!");
         }
+
+        BankAccount bankAccount = new BankAccount();
+
         bankAccount.setUser(user);
         bankAccount.setStatus("ACTIVE");
         bankAccount.setAccountNumber(generateAccountNumber());

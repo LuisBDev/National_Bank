@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IUserRepository extends JpaRepository<User, Long> {
 
-    boolean existsByUsername(String username);
+    boolean existsByNumIdentification(String numIdentification);
 
 }

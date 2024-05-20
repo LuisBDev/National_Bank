@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -18,19 +20,24 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique=true,nullable = false)
-    private String username;
-
-    @Column(nullable = false)
-    private String password;
-
-    @Column
-    private String email;
-
+    @Column(unique = true, nullable = false)
+    private String numIdentification;
+    
     @Column
     private String firstName;
 
     @Column
     private String lastName;
 
+    @Column
+    private String email;
+
+    @Column
+    private String phone;
+
+    @Column
+    private Date birthDate;
+
+    @Column(nullable = false)
+    private String password;
 }

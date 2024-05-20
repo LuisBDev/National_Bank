@@ -37,8 +37,8 @@ public class UserDAOImpl implements IUserDAO {
     }
 
     @Override
-    public boolean existsByUsername(String username) {
-        return userRepository.existsByUsername(username);
+    public boolean existsByNumIdentification(String numIdentification) {
+        return userRepository.existsByNumIdentification(numIdentification);
     }
 
 }

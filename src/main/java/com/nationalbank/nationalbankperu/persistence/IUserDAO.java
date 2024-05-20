@@ -15,6 +15,6 @@ public interface IUserDAO {
 
     void deleteById(Long id);
 
-    boolean existsByUsername(String username);
+    boolean existsByNumIdentification(String numIdentification);
 
 }
