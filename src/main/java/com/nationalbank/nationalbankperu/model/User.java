@@ -36,7 +36,7 @@ public class User {
     private String phone;
 
     @Column
-    private Date birthDate;
+    private String birthDate;
 
     @Column(nullable = false, length = 6)
     private String password;

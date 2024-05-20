@@ -26,7 +26,7 @@ public class UserController {
         return userService.findById(id);
     }
 
-    @PostMapping("/save")
+    @PostMapping("/register")
     public ResponseEntity<String> save(@RequestBody User user) {
         boolean numIdentificationExists = userService.existsByNumIdentification(user.getNumIdentification());
         if (numIdentificationExists) {
@@ -56,8 +56,8 @@ public class UserController {
         userService.deleteById(id);
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<User> login(@RequestBody User user) {
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody User user) {
 
         boolean numIdentificationExists = userService.existsByNumIdentification(user.getNumIdentification());
         User userToLogin = userService.findByNumIdentification(user.getNumIdentification());
@@ -69,4 +69,6 @@ public class UserController {
         }
 
     }
+
+
 }
