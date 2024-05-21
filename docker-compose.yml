@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    image: 'rest:latest'
+    build:
+      context: .
+    container_name: app
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:sqlserver://nationalbankapirest.database.windows.net:1433;database=nationalbank;user=nationalbankroot@nationalbankapirest;password=Adminroot123.;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30
+      - SPRING_DATASOURCE_USERNAME=nationalbankroot@nationalbankapirest
+      - SPRING_DATASOURCE_PASSWORD=Adminroot123.
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.SQLServer2012Dialect
+    ports:
+      - 8081:8080
+
+  db:
+    image: 'mcr.microsoft.com/mssql/server:2019-latest'
+    container_name: db
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Adminroot123.
+      - MSSQL_PID=Developer
+    ports:
+      - 1433:1433
