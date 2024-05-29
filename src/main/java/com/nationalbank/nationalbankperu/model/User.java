@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
@@ -16,6 +17,9 @@ import java.util.Date;
 @Table(name = "tblUser")
 public class User {
 
+
+    @Embedded
+    private Audit audit = new Audit();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,4 +45,21 @@ public class User {
 
     @Column(nullable = false, length = 6)
     private String password;
+
+    //to string
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", numIdentification='" + numIdentification + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", password='" + password + '\'' +
+                ", created_at" + audit.getCreatedAt() +
+                ", updated_at" + audit.getUpdatedAt() +
+                '}';
+    }
 }
