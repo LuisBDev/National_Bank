@@ -17,6 +17,9 @@ import java.time.LocalDate;
 @Table(name = "tblBankAccount")
 public class BankAccount {
 
+    @Embedded
+    private Audit audit = new Audit();
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,8 +30,8 @@ public class BankAccount {
     @Column(nullable = false)
     private BigDecimal balance;
 
-    @Column(nullable = false)
-    private LocalDate openingDate;
+//    @Column(nullable = false)
+//    private LocalDate openingDate;
 
     @Column(nullable = false)
     private String status;
@@ -36,5 +39,18 @@ public class BankAccount {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @Override
+    public String toString() {
+        return "BankAccount{" +
+                "id=" + id +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", balance=" + balance +
+                ", status='" + status + '\'' +
+                ", user=" + user +
+                ", created_at=" + audit.getCreatedAt() +
+                ", updated_at=" + audit.getUpdatedAt() +
+                '}';
+    }
 
 }

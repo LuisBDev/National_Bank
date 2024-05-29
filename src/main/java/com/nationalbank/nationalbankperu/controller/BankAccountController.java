@@ -49,7 +49,6 @@ public class BankAccountController {
         bankAccount.setUser(user);
         bankAccount.setStatus("ACTIVE");
         bankAccount.setAccountNumber(generateAccountNumber());
-        bankAccount.setOpeningDate(LocalDate.now());
 //        bankAccount.setBalance(BigDecimal.ZERO); // iniciar balance en cero
         //iniciar balance en 80000
         bankAccount.setBalance(new BigDecimal(80000));
