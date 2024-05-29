@@ -47,37 +47,36 @@ public class BankAccountServiceImpl implements IBankAccountService {
         return bankAccountDAO.findByUser(user);
     }
 
-
-    @Override
-    @Transactional
-    public void transfer(Long fromAccountId, Long toAccountId, BigDecimal amount) {
-        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Transfer amount must be greater than zero.");
-        }
-
-        BankAccount fromAccount = bankAccountDAO.findById(fromAccountId);
-        BankAccount toAccount = bankAccountDAO.findById(toAccountId);
-
-        if (fromAccount == null) {
-            throw new IllegalArgumentException("Source account does not exist.");
-        }
-
-        if (toAccount == null) {
-            throw new IllegalArgumentException("Destination account does not exist.");
-        }
-
-        if (fromAccount.getBalance().compareTo(amount) < 0) {
-            throw new IllegalArgumentException("Insufficient balance in the source account.");
-        }
-
-        // Debitar el monto de la cuenta de origen
-        fromAccount.setBalance(fromAccount.getBalance().subtract(amount));
-
-        // Acreditar el monto en la cuenta de destino
-        toAccount.setBalance(toAccount.getBalance().add(amount));
-
-        // Guardar los cambios en ambas cuentas
-        bankAccountDAO.save(fromAccount);
-        bankAccountDAO.save(toAccount);
-    }
+//    @Override
+//    @Transactional
+//    public void transfer(Long fromAccountId, Long toAccountId, BigDecimal amount) {
+//        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+//            throw new IllegalArgumentException("Transfer amount must be greater than zero.");
+//        }
+//
+//        BankAccount fromAccount = bankAccountDAO.findById(fromAccountId);
+//        BankAccount toAccount = bankAccountDAO.findById(toAccountId);
+//
+//        if (fromAccount == null) {
+//            throw new IllegalArgumentException("Source account does not exist.");
+//        }
+//
+//        if (toAccount == null) {
+//            throw new IllegalArgumentException("Destination account does not exist.");
+//        }
+//
+//        if (fromAccount.getBalance().compareTo(amount) < 0) {
+//            throw new IllegalArgumentException("Insufficient balance in the source account.");
+//        }
+//
+//        // Debitar el monto de la cuenta de origen
+//        fromAccount.setBalance(fromAccount.getBalance().subtract(amount));
+//
+//        // Acreditar el monto en la cuenta de destino
+//        toAccount.setBalance(toAccount.getBalance().add(amount));
+//
+//        // Guardar los cambios en ambas cuentas
+//        bankAccountDAO.save(fromAccount);
+//        bankAccountDAO.save(toAccount);
+//    }
 }

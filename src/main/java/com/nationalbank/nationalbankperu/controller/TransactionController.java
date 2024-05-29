@@ -1,6 +1,7 @@
 package com.nationalbank.nationalbankperu.controller;
 
 import com.nationalbank.nationalbankperu.model.Transaction;
+import com.nationalbank.nationalbankperu.service.IBankAccountService;
 import com.nationalbank.nationalbankperu.service.ITransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,9 @@ public class TransactionController {
     @Autowired
     private ITransactionService transactionService;
 
+    @Autowired
+    private IBankAccountService bankAccountService;
+
     @GetMapping("/all")
     public List<Transaction> findAll() {
         return transactionService.findAll();
@@ -30,13 +34,25 @@ public class TransactionController {
         return ResponseEntity.ok(transaction);
     }
 
-    @PostMapping("/transfer/{fromAccountNumber}/{toAccountNumber}/{amount}")
-    public ResponseEntity<String> performTransaction(@PathVariable String fromAccountNumber, @PathVariable String toAccountNumber, @PathVariable BigDecimal amount) {
-        try {
-            transactionService.performTransaction(fromAccountNumber, toAccountNumber, amount);
-            return ResponseEntity.ok("Transaction performed successfully!");
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+//    @PostMapping("/transfer/{fromAccountNumber}/{toAccountNumber}/{amount}")
+    @PostMapping("/transfer/{id}")
+//    public ResponseEntity<String> performTransaction(@PathVariable String fromAccountNumber, @PathVariable String toAccountNumber, @PathVariable BigDecimal amount) {
+//        try {
+//            transactionService.performTransaction(fromAccountNumber, toAccountNumber, amount);
+//            return ResponseEntity.ok("Transaction performed successfully!");
+//        } catch (IllegalArgumentException e) {
+//            return ResponseEntity.badRequest().body(e.getMessage());
+//        }
+//    }
+    public ResponseEntity<?> performTransaction(@PathVariable Long id, @RequestBody Transaction transaction) {
+//        try {
+//            transactionService.performTransaction(id, transaction);
+//            return ResponseEntity.ok("Transaction performed successfully!");
+//        } catch (IllegalArgumentException e) {
+//            return ResponseEntity.badRequest().body(e.getMessage());
+//        }
+        String result = transactionService.performTransaction(id, transaction);
+        return ResponseEntity.ok(result);
+
     }
 }

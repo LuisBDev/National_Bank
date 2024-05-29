@@ -12,6 +12,5 @@ public interface IBankAccountService {
     void save(BankAccount bankAccount);
     void deleteById(Long id);
     List<BankAccount> findByUser(User user);
-    void transfer(Long fromAccountId, Long toAccountId, BigDecimal amount);
 
 }

@@ -14,5 +14,5 @@ public interface ITransactionService {
 
     void deleteById(Long id);
 
-    void performTransaction(String fromAccountNumber, String toAccountNumber, BigDecimal amount);
+    String performTransaction(Long id, Transaction transaction);
 }

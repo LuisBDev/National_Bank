@@ -2,12 +2,14 @@ package com.nationalbank.nationalbankperu.service.impl;
 
 import com.nationalbank.nationalbankperu.model.BankAccount;
 import com.nationalbank.nationalbankperu.model.Transaction;
+import com.nationalbank.nationalbankperu.model.User;
 import com.nationalbank.nationalbankperu.persistence.IBankAccountDAO;
 import com.nationalbank.nationalbankperu.persistence.ITransactionDAO;
 import com.nationalbank.nationalbankperu.service.ITransactionService;
-import jakarta.transaction.Transactional;
+import com.nationalbank.nationalbankperu.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -21,6 +23,7 @@ public class TransactionServiceImpl implements ITransactionService {
 
     @Autowired
     private IBankAccountDAO bankAccountDAO;
+
 
     @Override
     public List<Transaction> findAll() {
@@ -44,31 +47,38 @@ public class TransactionServiceImpl implements ITransactionService {
 
     @Transactional
     @Override
-    public void performTransaction(String fromAccountNumber, String toAccountNumber, BigDecimal amount) {
-        BankAccount fromAccount = bankAccountDAO.findByAccountNumber(fromAccountNumber);
-        BankAccount toAccount = bankAccountDAO.findByAccountNumber(toAccountNumber);
+    public String performTransaction(Long id, Transaction transaction)
+    {
+
+        BankAccount fromAccount = bankAccountDAO.findByAccountNumber(transaction.getFromAccount());
+        BankAccount toAccount = bankAccountDAO.findByAccountNumber(transaction.getToAccount());
+
+        String msg = "";
 
         if (fromAccount == null || toAccount == null) {
-            throw new IllegalArgumentException("One of the accounts does not exist.");
+            throw new IllegalArgumentException("One or both accounts do not exist!");
         }
 
-        if (fromAccount.getBalance().compareTo(amount) < 0) {
-            throw new IllegalArgumentException("Insufficient balance in the source account.");
+        if (fromAccount.getBalance().compareTo(transaction.getAmount()) < 0) {
+            throw new IllegalArgumentException("Insufficient funds!");
         }
 
-        fromAccount.setBalance(fromAccount.getBalance().subtract(amount));
-        toAccount.setBalance(toAccount.getBalance().add(amount));
 
-        bankAccountDAO.save(fromAccount);
-        bankAccountDAO.save(toAccount);
+        if (fromAccount.getUser().getId().equals(id))
+        {
+            fromAccount.setBalance(fromAccount.getBalance().subtract(transaction.getAmount()));
+            toAccount.setBalance(toAccount.getBalance().add(transaction.getAmount()));
+            bankAccountDAO.save(fromAccount);
+            bankAccountDAO.save(toAccount);
+            transaction.setTransactionDate(LocalDateTime.now());
+            transactionDAO.save(transaction);
+            msg = "Transaction performed successfully!";
+        }
+        else
+        {
+            msg = "You are not authorized to perform this transaction!";
+        }
 
-        Transaction transaction = Transaction.builder()
-                .fromAccount(fromAccount)
-                .toAccount(toAccount)
-                .amount(amount)
-                .transactionDate(LocalDateTime.now())
-                .build();
-
-        transactionDAO.save(transaction);
+        return msg;
     }
 }
