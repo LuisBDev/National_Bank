@@ -4,9 +4,9 @@ import com.nationalbank.nationalbankperu.model.BankAccount;
 import com.nationalbank.nationalbankperu.model.User;
 import com.nationalbank.nationalbankperu.persistence.IBankAccountDAO;
 import com.nationalbank.nationalbankperu.service.IBankAccountService;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,32 +18,38 @@ public class BankAccountServiceImpl implements IBankAccountService {
     private IBankAccountDAO bankAccountDAO;
 
     @Override
+    @Transactional(readOnly = true)
     public List<BankAccount> findAll() {
         return bankAccountDAO.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public BankAccount findById(Long id) {
         return bankAccountDAO.findById(id);
     }
 
     @Override
+    @Transactional
     public void save(BankAccount bankAccount) {
         bankAccountDAO.save(bankAccount);
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         bankAccountDAO.deleteById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<BankAccount> findByUser(User user) {
         return bankAccountDAO.findByUser(user);
     }
 
-    @Transactional
+
     @Override
+    @Transactional
     public void transfer(Long fromAccountId, Long toAccountId, BigDecimal amount) {
         if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Transfer amount must be greater than zero.");
