@@ -45,8 +45,8 @@ public class TransactionServiceImpl implements ITransactionService {
         transactionDAO.deleteById(id);
     }
 
-    @Transactional
     @Override
+    @Transactional
     public String performTransaction(Long id, Transaction transaction)
     {
 
@@ -78,6 +78,7 @@ public class TransactionServiceImpl implements ITransactionService {
         {
             msg = "You are not authorized to perform this transaction!";
         }
+
 
         return msg;
     }

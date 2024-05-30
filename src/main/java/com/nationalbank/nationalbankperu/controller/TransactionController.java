@@ -17,8 +17,6 @@ public class TransactionController {
     @Autowired
     private ITransactionService transactionService;
 
-    @Autowired
-    private IBankAccountService bankAccountService;
 
     @GetMapping("/all")
     public List<Transaction> findAll() {
