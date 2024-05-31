@@ -35,9 +35,9 @@ public class BankAccount {
     @Column(nullable = false)
     private String status;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id", nullable = false)
+//    private User user;
 
     @Override
     public String toString() {
@@ -46,7 +46,7 @@ public class BankAccount {
                 ", accountNumber='" + accountNumber + '\'' +
                 ", balance=" + balance +
                 ", status='" + status + '\'' +
-                ", user=" + user +
+//                ", user=" + user +
                 ", created_at=" + audit.getCreatedAt() +
                 ", updated_at=" + audit.getUpdatedAt() +
                 '}';

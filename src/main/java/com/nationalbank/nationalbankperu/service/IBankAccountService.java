@@ -8,9 +8,12 @@ import java.util.List;
 
 public interface IBankAccountService {
     List<BankAccount> findAll();
+
     BankAccount findById(Long id);
+
     void save(BankAccount bankAccount);
+
     void deleteById(Long id);
-    List<BankAccount> findByUser(User user);
+//    List<BankAccount> findByUser(User user);
 
 }

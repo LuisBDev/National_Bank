@@ -36,10 +36,10 @@ public class BankAccountDAOImpl implements IBankAccountDAO {
         IBankAccountRepository.deleteById(id);
     }
 
-    @Override
-    public List<BankAccount> findByUser(User user) {
-        return IBankAccountRepository.findByUser(user);
-    }
+//    @Override
+//    public List<BankAccount> findByUser(User user) {
+//        return IBankAccountRepository.findByUser(user);
+//    }
 
     @Override
     public BankAccount findByAccountNumber(String accountNumber) {

@@ -32,16 +32,8 @@ public class TransactionController {
         return ResponseEntity.ok(transaction);
     }
 
-//    @PostMapping("/transfer/{fromAccountNumber}/{toAccountNumber}/{amount}")
+
     @PostMapping("/transfer/{id}")
-//    public ResponseEntity<String> performTransaction(@PathVariable String fromAccountNumber, @PathVariable String toAccountNumber, @PathVariable BigDecimal amount) {
-//        try {
-//            transactionService.performTransaction(fromAccountNumber, toAccountNumber, amount);
-//            return ResponseEntity.ok("Transaction performed successfully!");
-//        } catch (IllegalArgumentException e) {
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        }
-//    }
     public ResponseEntity<?> performTransaction(@PathVariable Long id, @RequestBody Transaction transaction) {
 //        try {
 //            transactionService.performTransaction(id, transaction);

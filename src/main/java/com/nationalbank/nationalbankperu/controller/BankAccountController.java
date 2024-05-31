@@ -44,15 +44,24 @@ public class BankAccountController {
             return ResponseEntity.badRequest().body("Error: User not found!");
         }
 
-        BankAccount bankAccount = new BankAccount();
+//        BankAccount bankAccount = BankAccount.builder()
+//                .status("ACTIVE")
+//                .accountNumber(generateAccountNumber())
+//                .balance(new BigDecimal(80000))
+//                .build();
 
-        bankAccount.setUser(user);
+        BankAccount bankAccount = new BankAccount();
         bankAccount.setStatus("ACTIVE");
         bankAccount.setAccountNumber(generateAccountNumber());
-//        bankAccount.setBalance(BigDecimal.ZERO); // iniciar balance en cero
-        //iniciar balance en 80000
         bankAccount.setBalance(new BigDecimal(80000));
+
+
+//        bankAccount.setUser(user);
+
+
         bankAccountService.save(bankAccount);
+        user.getBankAccounts().add(bankAccount);
+        userService.save(user);
 
         return ResponseEntity.ok("BankAccount created successfully!");
     }

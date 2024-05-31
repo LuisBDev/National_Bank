@@ -1,9 +1,6 @@
 package com.nationalbank.nationalbankperu.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,16 +19,15 @@ public class Audit {
     private LocalDateTime updatedAt;
 
 
-    @PrePersist
-    public void prePersist() {
+    @PostPersist
+    public void postPersist() {
         this.createdAt = LocalDateTime.now();
     }
 
-    @PreUpdate
-    public void preUpdate() {
+    @PostUpdate
+    public void postUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
-
 
 
 }

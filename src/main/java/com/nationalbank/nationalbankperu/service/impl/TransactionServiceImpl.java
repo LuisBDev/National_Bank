@@ -5,6 +5,7 @@ import com.nationalbank.nationalbankperu.model.Transaction;
 import com.nationalbank.nationalbankperu.model.User;
 import com.nationalbank.nationalbankperu.persistence.IBankAccountDAO;
 import com.nationalbank.nationalbankperu.persistence.ITransactionDAO;
+import com.nationalbank.nationalbankperu.repository.IUserRepository;
 import com.nationalbank.nationalbankperu.service.ITransactionService;
 import com.nationalbank.nationalbankperu.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class TransactionServiceImpl implements ITransactionService {
 
     @Autowired
     private IBankAccountDAO bankAccountDAO;
+
+    @Autowired
+    private IUserRepository userDAO;
 
 
     @Override
@@ -47,8 +51,7 @@ public class TransactionServiceImpl implements ITransactionService {
 
     @Override
     @Transactional
-    public String performTransaction(Long id, Transaction transaction)
-    {
+    public String performTransaction(Long id, Transaction transaction) {
 
         BankAccount fromAccount = bankAccountDAO.findByAccountNumber(transaction.getFromAccount());
         BankAccount toAccount = bankAccountDAO.findByAccountNumber(transaction.getToAccount());
@@ -63,19 +66,27 @@ public class TransactionServiceImpl implements ITransactionService {
             throw new IllegalArgumentException("Insufficient funds!");
         }
 
+        //Verificando que el usuario sea el dueño de la cuenta para realizar la transacción
+        User user = userDAO.findById(id).orElse(null);
 
-        if (fromAccount.getUser().getId().equals(id))
-        {
+        List<BankAccount> bankAccounts = user.getBankAccounts();
+
+        boolean isFromAccountOwner = bankAccounts.stream().
+                anyMatch(bankAccount -> bankAccount.getAccountNumber().equals(fromAccount.getAccountNumber()));
+
+        if (isFromAccountOwner) {
             fromAccount.setBalance(fromAccount.getBalance().subtract(transaction.getAmount()));
             toAccount.setBalance(toAccount.getBalance().add(transaction.getAmount()));
+
+            //Persistiendo los cambios en bankAccount
             bankAccountDAO.save(fromAccount);
             bankAccountDAO.save(toAccount);
+
             transaction.setTransactionDate(LocalDateTime.now());
+            //Persistiendo la transacción
             transactionDAO.save(transaction);
             msg = "Transaction performed successfully!";
-        }
-        else
-        {
+        } else {
             msg = "You are not authorized to perform this transaction!";
         }
 

@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface IBankAccountRepository extends JpaRepository<BankAccount, Long> {
 
-    List<BankAccount> findByUser(User user);
+//    List<BankAccount> findByUser(User user);
 
     BankAccount findByAccountNumber(String accountNumber);
 

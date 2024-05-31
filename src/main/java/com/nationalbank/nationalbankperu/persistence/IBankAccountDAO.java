@@ -14,7 +14,7 @@ public interface IBankAccountDAO {
 
     void deleteById(Long id);
 
-    List<BankAccount> findByUser(User user);
+//    List<BankAccount> findByUser(User user);
 
     BankAccount findByAccountNumber(String accountNumber);
 }

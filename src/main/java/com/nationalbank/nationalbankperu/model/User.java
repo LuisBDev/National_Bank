@@ -5,9 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Date;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -17,9 +17,13 @@ import java.util.Date;
 @Table(name = "tblUser")
 public class User {
 
-
     @Embedded
     private Audit audit = new Audit();
+
+    //@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(orphanRemoval = true)
+    private List<BankAccount> bankAccounts;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,6 +64,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", created_at" + audit.getCreatedAt() +
                 ", updated_at" + audit.getUpdatedAt() +
+                ", bankAccounts=" + bankAccounts +
                 '}';
     }
 }
