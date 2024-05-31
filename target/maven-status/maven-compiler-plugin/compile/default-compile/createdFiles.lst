@@ -1,3 +1,4 @@
+com\nationalbank\nationalbankperu\model\Audit.class
 com\nationalbank\nationalbankperu\NationalbankperuApplication.class
 com\nationalbank\nationalbankperu\service\IBankAccountService.class
 com\nationalbank\nationalbankperu\repository\IBankAccountRepository.class
