@@ -44,12 +44,6 @@ public class BankAccountController {
             return ResponseEntity.badRequest().body("Error: User not found!");
         }
 
-//        BankAccount bankAccount = BankAccount.builder()
-//                .status("ACTIVE")
-//                .accountNumber(generateAccountNumber())
-//                .balance(new BigDecimal(80000))
-//                .build();
-
         BankAccount bankAccount = new BankAccount();
         bankAccount.setStatus("ACTIVE");
         bankAccount.setAccountNumber(generateAccountNumber());
