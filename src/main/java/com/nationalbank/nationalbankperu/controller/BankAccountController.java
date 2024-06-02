@@ -44,6 +44,7 @@ public class BankAccountController {
             return ResponseEntity.badRequest().body("Error: User not found!");
         }
 
+        //si se crea con patrón builder, no se guardara el embeddable audit en la base de datos
         BankAccount bankAccount = new BankAccount();
         bankAccount.setStatus("ACTIVE");
         bankAccount.setAccountNumber(generateAccountNumber());
@@ -51,7 +52,6 @@ public class BankAccountController {
 
 
 //        bankAccount.setUser(user);
-
 
         bankAccountService.save(bankAccount);
         user.getBankAccounts().add(bankAccount);
@@ -66,9 +66,17 @@ public class BankAccountController {
         if (existingBankAccount == null) {
             return ResponseEntity.badRequest().body("Error: BankAccount not found!");
         }
-        existingBankAccount.setAccountNumber(bankAccount.getAccountNumber());
-        existingBankAccount.setStatus(bankAccount.getStatus());
-        existingBankAccount.setBalance(bankAccount.getBalance()); // actualizar balance si es necesario
+
+        if (bankAccount.getStatus() != null) {
+            existingBankAccount.setStatus(bankAccount.getStatus());
+        }
+        if (bankAccount.getBalance() != null) {
+            existingBankAccount.setBalance(bankAccount.getBalance());
+        }
+        if (bankAccount.getAccountNumber() != null) {
+            existingBankAccount.setAccountNumber(bankAccount.getAccountNumber());
+        }
+
         bankAccountService.save(existingBankAccount);
         return ResponseEntity.ok("BankAccount updated successfully!");
     }

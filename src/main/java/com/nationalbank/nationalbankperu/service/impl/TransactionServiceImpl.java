@@ -66,6 +66,19 @@ public class TransactionServiceImpl implements ITransactionService {
             throw new IllegalArgumentException("Insufficient funds!");
         }
 
+        if (transaction.getAmount().compareTo(new BigDecimal(0)) <= 0) {
+            throw new IllegalArgumentException("El monto a transferir debe ser mayor a 0!");
+        }
+
+
+        //Verificando que ambas cuentas estén activas
+        boolean isFromAccountActive = fromAccount.getStatus().equals("ACTIVE");
+        boolean isToAccountActive = toAccount.getStatus().equals("ACTIVE");
+
+        if (!isFromAccountActive || !isToAccountActive) {
+            throw new IllegalArgumentException("One or both accounts are not active!");
+        }
+
         //Verificando que el usuario sea el dueño de la cuenta para realizar la transacción
         User user = userDAO.findById(id).orElse(null);
 
@@ -73,6 +86,7 @@ public class TransactionServiceImpl implements ITransactionService {
 
         boolean isFromAccountOwner = bankAccounts.stream().
                 anyMatch(bankAccount -> bankAccount.getAccountNumber().equals(fromAccount.getAccountNumber()));
+
 
         if (isFromAccountOwner) {
             fromAccount.setBalance(fromAccount.getBalance().subtract(transaction.getAmount()));
