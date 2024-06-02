@@ -58,34 +58,9 @@ public class TransactionServiceImpl implements ITransactionService {
 
         String msg = "";
 
-        if (fromAccount == null || toAccount == null) {
-            throw new IllegalArgumentException("One or both accounts do not exist!");
-        }
+        validateAccountAndTransaction(transaction, fromAccount, toAccount);
 
-        if (fromAccount.getBalance().compareTo(transaction.getAmount()) < 0) {
-            throw new IllegalArgumentException("Insufficient funds!");
-        }
-
-        if (transaction.getAmount().compareTo(new BigDecimal(0)) <= 0) {
-            throw new IllegalArgumentException("El monto a transferir debe ser mayor a 0!");
-        }
-
-
-        //Verificando que ambas cuentas estén activas
-        boolean isFromAccountActive = fromAccount.getStatus().equals("ACTIVE");
-        boolean isToAccountActive = toAccount.getStatus().equals("ACTIVE");
-
-        if (!isFromAccountActive || !isToAccountActive) {
-            throw new IllegalArgumentException("One or both accounts are not active!");
-        }
-
-        //Verificando que el usuario sea el dueño de la cuenta para realizar la transacción
-        User user = userDAO.findById(id).orElse(null);
-
-        List<BankAccount> bankAccounts = user.getBankAccounts();
-
-        boolean isFromAccountOwner = bankAccounts.stream().
-                anyMatch(bankAccount -> bankAccount.getAccountNumber().equals(fromAccount.getAccountNumber()));
+        boolean isFromAccountOwner = validateOwnerTransaction(id, transaction, fromAccount);
 
 
         if (isFromAccountOwner) {
@@ -104,7 +79,45 @@ public class TransactionServiceImpl implements ITransactionService {
             msg = "You are not authorized to perform this transaction!";
         }
 
-
         return msg;
     }
+
+    //Verificando que el usuario sea el dueño de la cuenta para realizar la transacción
+    public boolean validateOwnerTransaction(Long id, Transaction transaction, BankAccount fromAccount) {
+        User user = userDAO.findById(id).orElse(null);
+
+        List<BankAccount> bankAccounts = user.getBankAccounts();
+
+        boolean isFromAccountOwner = bankAccounts.stream().
+                anyMatch(bankAccount -> bankAccount.getAccountNumber().equals(fromAccount.getAccountNumber()));
+
+        return isFromAccountOwner;
+    }
+
+
+    public void validateAccountAndTransaction(Transaction transaction, BankAccount fromAccount, BankAccount toAccount) {
+        if (fromAccount == null || toAccount == null) {
+            throw new IllegalArgumentException("One or both accounts do not exist!");
+        }
+
+        //Verificando que ambas cuentas estén activas
+        boolean isFromAccountActive = fromAccount.getStatus().equals("ACTIVE");
+        boolean isToAccountActive = toAccount.getStatus().equals("ACTIVE");
+
+        if (!isFromAccountActive || !isToAccountActive) {
+            throw new IllegalArgumentException("One or both accounts are not active!");
+        }
+
+        if (fromAccount.getBalance().compareTo(transaction.getAmount()) < 0) {
+            throw new IllegalArgumentException("Insufficient funds!");
+        }
+
+        if (transaction.getAmount().compareTo(new BigDecimal(0)) <= 0) {
+            throw new IllegalArgumentException("El monto a transferir debe ser mayor a 0!");
+        }
+
+
+    }
+
+
 }
