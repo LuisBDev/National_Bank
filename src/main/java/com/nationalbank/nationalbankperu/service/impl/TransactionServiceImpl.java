@@ -60,7 +60,7 @@ public class TransactionServiceImpl implements ITransactionService {
 
         validateAccountAndTransaction(transaction, fromAccount, toAccount);
 
-        boolean isFromAccountOwner = validateOwnerTransaction(id, transaction, fromAccount);
+        boolean isFromAccountOwner = validateOwnerTransaction(id, fromAccount);
 
 
         if (isFromAccountOwner) {
@@ -71,8 +71,8 @@ public class TransactionServiceImpl implements ITransactionService {
             bankAccountDAO.save(fromAccount);
             bankAccountDAO.save(toAccount);
 
-            transaction.setTransactionDate(LocalDateTime.now());
             //Persistiendo la transacción
+            transaction.setTransactionDate(LocalDateTime.now());
             transactionDAO.save(transaction);
             msg = "Transaction performed successfully!";
         } else {
@@ -83,7 +83,7 @@ public class TransactionServiceImpl implements ITransactionService {
     }
 
     //Verificando que el usuario sea el dueño de la cuenta para realizar la transacción
-    public boolean validateOwnerTransaction(Long id, Transaction transaction, BankAccount fromAccount) {
+    public boolean validateOwnerTransaction(Long id, BankAccount fromAccount) {
         User user = userDAO.findById(id).orElse(null);
 
         List<BankAccount> bankAccounts = user.getBankAccounts();
