@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class UserController {
 
     @Autowired
@@ -41,12 +42,9 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<String> update(@PathVariable Long id, @RequestBody User user) {
         User userToUpdate = userService.findById(id);
-        if (userToUpdate == null)
-        {
+        if (userToUpdate == null) {
             return ResponseEntity.badRequest().body("Error: User no encontrado!");
-        }
-        else
-        {
+        } else {
             userToUpdate.setNumIdentification(user.getNumIdentification());
             userToUpdate.setPassword(user.getPassword());
             userService.save(userToUpdate);
@@ -70,7 +68,6 @@ public class UserController {
         } else {
             return ResponseEntity.badRequest().body(null);
         }
-
 
 
     }
