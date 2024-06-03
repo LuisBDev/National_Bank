@@ -15,8 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/bankAccount")
-//allow all cors
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class BankAccountController {
 
     @Autowired
