@@ -8,75 +8,78 @@
 
 <style>
 
-#confirmationDialog {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    text-align: center;
-    margin-top: 50px;
-    height: 150px;
-}
+    #confirmationDialog {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        margin-top: 50px;
+        height: 150px;
+    }
 
-#confirmationDialog p {
-    margin-top: 40px;
-    font-size: 16px;
-    color: #333;
-}
+    #confirmationDialog p {
+        margin-top: 40px;
+        font-size: 16px;
+        color: #333;
+    }
 
-.button-group button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    margin: 10px;
-    transition: background-color 0.3s;
-}
+    .button-group button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 10px;
+        transition: background-color 0.3s;
+    }
 
-#noButton {
-    background-color: #ffffff;
-    color: #007BFF;
-    border: 1px solid #007BFF;
-}
+    #noButton {
+        background-color: #ffffff;
+        color: #007BFF;
+        border: 1px solid #007BFF;
+    }
 
-#cerrar-cuenta3 {
-    background-color: #007BFF;
-    color: white;
-}
+    #cerrar-cuenta3 {
+        background-color: #007BFF;
+        color: white;
+    }
 
-#noButton:hover, #cerrar-cuenta3:hover {
-    background-color: #0056b3;
-    color: white;
-    border-color: transparent;
-}
+    #noButton:hover, #cerrar-cuenta3:hover {
+        background-color: #0056b3;
+        color: white;
+        border-color: transparent;
+    }
 
 </style>
 
 <script>
-    document.getElementById('cerrar-cuenta3').addEventListener('click',async ()=>{
-        cuentaCerrar=localStorage.getItem('cuentaCerrar');
-                const url ='http://167.71.97.221:8080/api/bankAccount/'+cuentaCerrar;
-                const data = {
-                    "status": "CERRADA"
-                };
 
-                const response= await fetch(url, {
-                    method: 'PUT',
-                    body: JSON.stringify(data),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                if (!response.ok) {
-                    throw new Error('Error al CERRAR la cuenta');
-                    
-                }
-                else{
-                    localStorage.removeItem('cuentaCerrar');
-                    await updateUserLocalData();
-                    htmlAjax('cerrar-cuenta4.html','info');
-                }
+    const rutalocal = '';
+    const rutaserver = 'http://167.71.97.221:8080';
+
+    document.getElementById('cerrar-cuenta3').addEventListener('click', async () => {
+        cuentaCerrar = localStorage.getItem('cuentaCerrar');
+        const url = `${rutalocal}/api/bankAccount/${cuentaCerrar}`;
+        const data = {
+            "status": "CERRADA"
+        };
+
+        const response = await fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        if (!response.ok) {
+            throw new Error('Error al CERRAR la cuenta');
+
+        } else {
+            localStorage.removeItem('cuentaCerrar');
+            await updateUserLocalData();
+            htmlAjax('cerrar-cuenta4.html', 'info');
+        }
     })
 </script>
 

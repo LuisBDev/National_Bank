@@ -8,19 +8,19 @@
         <input id="confirmar-pin" type="password" placeholder="Confirme su contraseña" required>
     </form>
     <button id="nueva-cuenta2" type="reset">Continuar</button>
-    
+
 </div>
 
 <style>
-    
+
     .crear-cuenta-form {
         background: white;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         width: 520px;
-        
+
     }
-    
+
     .crear-cuenta-form h2 {
         background-color: #8F8F8F;
         color: white;
@@ -30,19 +30,19 @@
         padding-top: 15px;
         padding-bottom: 15px;
     }
-    
+
 
 
     #crearCuentaForm2 div {
         width: 50%;
     }
-    
+
     #crearCuentaForm2 label {
         display: block;
         margin-bottom: 5px;
         color: #666;
     }
-    
+
     #crearCuentaForm2 input,
     #crearCuentaForm2 select {
         width: 170px;
@@ -51,7 +51,7 @@
         border-bottom: 1px solid #ccc;
 
     }
-    
+
     #nueva-cuenta2 {
         width: 296px;
         height: 40px;
@@ -68,20 +68,25 @@
     #nueva-cuenta2:hover {
         background-color: #0056b3;
     }
-    
+
 </style>
 
 
 <script>
+
+    const rutalocal = '';
+    const rutaserver = 'http://167.71.97.221:8080';
+
     document.getElementById('nueva-cuenta2').addEventListener('click',async ()=> {
-        
+
         const user = getUserLocalData();
         pin=document.getElementById('pin').value;
         confirmarPin=document.getElementById('confirmar-pin').value;
 
         // Verificar si los valores coinciden
         if (pin === confirmarPin && pin === user.password) {
-            const url = 'http://167.71.97.221:8080/api/bankAccount/create/' + user.id;
+
+            const url= `${rutalocal}/api/bankAccount/create/${user.id}`;
             response= await fetch(url, {
                 method: 'POST',
                 body: JSON.stringify({}),

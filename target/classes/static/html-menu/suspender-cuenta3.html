@@ -8,78 +8,81 @@
 
 <style>
 
-#confirmationDialog {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    text-align: center;
-    margin-top: 50px;
-    height: 150px;
-}
+    #confirmationDialog {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        margin-top: 50px;
+        height: 150px;
+    }
 
-#confirmationDialog p {
-    margin-top: 40px;
-    font-size: 16px;
-    color: #333;
-}
+    #confirmationDialog p {
+        margin-top: 40px;
+        font-size: 16px;
+        color: #333;
+    }
 
-.button-group button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    margin: 10px;
-    transition: background-color 0.3s;
-}
+    .button-group button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 10px;
+        transition: background-color 0.3s;
+    }
 
-#noButton {
-    background-color: #ffffff;
-    color: #007BFF;
-    border: 1px solid #007BFF;
-}
+    #noButton {
+        background-color: #ffffff;
+        color: #007BFF;
+        border: 1px solid #007BFF;
+    }
 
-#suspender-cuenta3 {
-    background-color: #007BFF;
-    color: white;
-}
+    #suspender-cuenta3 {
+        background-color: #007BFF;
+        color: white;
+    }
 
-#noButton:hover, #suspender-cuenta3:hover {
-    background-color: #0056b3;
-    color: white;
-    border-color: transparent;
-}
+    #noButton:hover, #suspender-cuenta3:hover {
+        background-color: #0056b3;
+        color: white;
+        border-color: transparent;
+    }
 
 </style>
 
 <script>
-    document.getElementById('suspender-cuenta3').addEventListener('click',async ()=> {
-        cuentaSuspender=localStorage.getItem('cuentaSuspender');
 
-                const url ='http://167.71.97.221:8080/api/bankAccount/'+cuentaSuspender;
-                const data = {
-                    "status": "SUSPENDIDA"
-                };
+    const rutalocal = '';
+    const rutaserver = 'http://167.71.97.221:8080';
 
-                const response= await fetch(url, {
-                    method: 'PUT',
-                    body: JSON.stringify(data),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                if (!response.ok) {
-                    throw new Error('Error al suspender la cuenta');
-                    
-                }
-                else{
-                    localStorage.removeItem('cuentaSuspender');
-                    await updateUserLocalData();
-                    htmlAjax('suspender-cuenta4.html','info');
-                }
+    document.getElementById('suspender-cuenta3').addEventListener('click', async () => {
+        cuentaSuspender = localStorage.getItem('cuentaSuspender');
 
 
-        
+        const url = `${rutalocal}/api/bankAccount/${cuentaSuspender}`;
+        const data = {
+            "status": "SUSPENDIDA"
+        };
+
+        const response = await fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        if (!response.ok) {
+            throw new Error('Error al suspender la cuenta');
+
+        } else {
+            localStorage.removeItem('cuentaSuspender');
+            await updateUserLocalData();
+            htmlAjax('suspender-cuenta4.html', 'info');
+        }
+
+
     });
 </script>
