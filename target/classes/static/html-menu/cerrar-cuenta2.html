@@ -1,9 +1,9 @@
 <div id="confirmationDialog">
     <p>Digite su clave web</p>
-    <input type="password" name="" id="" placeholder="clave web">
+    <input type="password" id="webKey" placeholder="clave web">
     <div class="button-group">
         <button id="noButton" href="#" onclick="window.location.href='gestionar-cuenta.html'">No</button>
-        <button id="yesButton" href="#" onclick="htmlAjax('cerrar-cuenta3.html','info');">Sí</button>
+        <button id="cerrar-cuenta2" href="#">Sí</button>
     </div>
 </div>
 
@@ -47,12 +47,12 @@
     border: 1px solid #007BFF;
 }
 
-#yesButton {
+#cerrar-cuenta2 {
     background-color: #007BFF;
     color: white;
 }
 
-#noButton:hover, #yesButton:hover {
+#noButton:hover, #cerrar-cuenta2:hover {
     background-color: #0056b3;
     color: white;
     border-color: transparent;
@@ -61,3 +61,19 @@
 
 
 </style>
+
+<script>
+    document.getElementById('cerrar-cuenta2').addEventListener('click',()=>{
+        password=localStorage.getItem('userPassword');
+        webKey = document.getElementById('webKey').value;
+
+        if (webKey === password){
+            htmlAjax('cerrar-cuenta3.html', 'info');
+        } else {
+            if (webKey == ''){
+                alert('Ingrese su clave web');
+            } else 
+                alert('Clave web incorrecta');
+        }
+    })
+</script>

@@ -1,3 +1,6 @@
+const rutalocal = 'http://localhost:8080';
+const rutaserver = 'http://167.71.97.221:8080';
+
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login');
     loginForm.addEventListener('submit', validateForm);
@@ -52,7 +55,7 @@ function isValidDNI(documentType, dni) {
 }
 
 async function loginUser(dni, password) {
-    const response = await fetch('/api/user/login', {
+    const response = await fetch(`${rutalocal}/api/user/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -71,4 +74,6 @@ async function loginUser(dni, password) {
 
 function storeUserData(user) {
     localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('userId', user.id);
+    localStorage.setItem('userPassword', user.password);
 }

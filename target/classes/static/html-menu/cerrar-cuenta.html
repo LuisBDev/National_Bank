@@ -1,14 +1,8 @@
 <div class="reactivation-form">
     <h2>Cierre de cuenta</h2>
     <form id="reactivationForm">
-
-
-        <select id="account-select">
-            <option value="">Seleccione una cuenta...</option>
-            <option value="1">Cuenta 1</option>
-            <option value="2">Cuenta 2</option>
+        <select id="accountSelect">
         </select>
-
 
         <select id="motivo-select">
             <option value="">Indique el motivo...</option>
@@ -16,8 +10,7 @@
             <option value="2">Motivo 2</option>
         </select>
         <textarea name="textarea" id="textarea" placeholder="Describa brevemente"></textarea>
-
-        <button  type="reset" onclick="htmlAjax('cerrar-cuenta2.html','info');">Cerrar</button>
+        <button  type="reset" id="cerrar-cuenta">Cerrar</button>
 
     </form>
 </div>
@@ -79,3 +72,14 @@
     
     
 </style>
+
+<script>
+    document.getElementById('cerrar-cuenta').addEventListener('click', ()=>{
+        
+        const cuentaCerrar = document.getElementById('accountSelect').value;
+        localStorage.setItem('cuentaCerrar', cuentaCerrar);
+        htmlAjax('cerrar-cuenta2.html', 'info');
+
+
+    });
+</script>

@@ -3,26 +3,20 @@
     <form id="reactivationForm">
 
 
-        <select id="account-select">
-            <option value="">Seleccione una cuenta...</option>
-            <option value="1">Cuenta 1</option>
-            <option value="2">Cuenta 2</option>
+        <select id="accountSelect">
         </select>
 
 
         <select id="motivo-select">
             <option value="">Indique el motivo...</option>
-            <option value="1">Motiv 1</option>
-            <option value="2">Motivo 2</option>
+            <option value="1">Perdida/hurto de tarjeta</option>
+            <option value="2">Sospecha de fraude</option>
+            <option value="2">Otros</option>
         </select>
         <textarea name="textarea" id="textarea" placeholder="Describa brevemente"></textarea>
-        <label for="fecha-suspencion">Suspender hasta:</label><br>
-        <input type="date" name="fecha-suspencion" id="">
-        <button type="reset" onclick="htmlAjax('suspender-cuenta2.html','info');">Continuar</button>
 
+        <button type="reset" id="suspender-cuenta">Continuar</button>
     </form>
-
-    
 
 </div>
 
@@ -83,3 +77,11 @@
     
     
 </style>
+
+<script>
+    document.getElementById('suspender-cuenta').addEventListener('click',()=>{
+        idCuenta=document.getElementById('accountSelect').value;
+        localStorage.setItem('cuentaSuspender', idCuenta);//se almacenará el número de cuenta en el localStorage
+        htmlAjax('suspender-cuenta2.html','info')
+    })
+</script>

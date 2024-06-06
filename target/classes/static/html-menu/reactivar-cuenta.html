@@ -1,21 +1,16 @@
 <div class="reactivation-form">
     <h2>Reactivación de cuenta</h2>
     <form id="reactivationForm">
-        <label for="reactivation-date">Fecha de reactivación</label>
-        <input id="reactivation-date" type="date" value="2024-05-16">
 
         <label for="account-select">Seleccionar cuenta</label>
-        <select id="account-select">
-            <option value="">Seleccione una cuenta...</option>
-            <option value="1">Cuenta 1</option>
-            <option value="2">Cuenta 2</option>
+        <select id="accountSelect">
         </select>
 
         <label for="web-key">Clave web</label>
         <input id="web-key" type="password" placeholder="Ingrese su clave web">
 
         
-        <button type="reset" onclick="htmlAjax('reactivar-cuenta2.html','info');">Reactivar</button>
+        <button type="reset" id="reactivar-cuenta">Reactivar</button>
     </form>
     
 </div>
@@ -77,3 +72,24 @@
     
     
 </style>
+
+<script>
+    document.getElementById('reactivar-cuenta').addEventListener('click', ()=>{
+        
+        const cuentaReactivar = document.getElementById('accountSelect').value;
+        
+        password=localStorage.getItem('userPassword');
+        webKey = document.getElementById('web-key').value;
+
+        if (webKey == password){
+            localStorage.setItem('cuentaReactivar', cuentaReactivar);
+            htmlAjax('reactivar-cuenta2.html','info');
+        } else {
+            if (webKey == ''){
+                alert('Ingrese su clave web');
+            } else 
+                alert('Clave web incorrecta');
+        }
+
+    });
+</script>

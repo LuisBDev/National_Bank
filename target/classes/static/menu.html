@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/menuStyle.css">
-    <title>Document</title>
+    <title>Menú usuario</title>
+    
 </head>
 <body>
     <nav class="navbar">
@@ -13,11 +14,11 @@
             <li><a href="./web-construccion.html">Acerca de nosotros</a></li>
             <li><a href="./web-construccion.html">Contáctanos</a></li>
             <li><a href="./web-construccion.html">Mi perfil</a></li>
-            <li ><a id="salir" href="./index.html">Salir</a></li>
+            <li><a id="salir" type="reset" href="#">Salir</a></li>
         </ul>
     </nav>
     <div class="banner">
-        <h1>¡Bienvenido, Mariano!</h1>
+        <h1>¡Bienvenido, <span id="user-name">user name</span>!</h1>
         <p>¿Qué deseas realizar?</p>
         <input type="text" placeholder="Buscar">
     </div>
@@ -52,5 +53,19 @@
     <footer>
         © National Bank
     </footer>
+    <script src="./js/ScriptsMenu.js"></script>
+    <script>//no se ejecuta cuando se pone en scriptsMenu.js, por mientras aqui
+
+        document.getElementById('salir').addEventListener('click', function(event) {
+        event.preventDefault(); // Previene la acción por defecto del enlace
+
+        alert('Saliendo de la aplicación...');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userPassword');
+        localStorage.removeItem('user');
+        // Por ejemplo, puedes redirigir al usuario a una página de login
+        window.location.href = './index.html';
+    });
+    </script>
 </body>
 </html>
