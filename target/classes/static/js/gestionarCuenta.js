@@ -1,24 +1,22 @@
-const rutalocal = '';
-const rutaserver = 'http://167.71.97.221:8080';
-
 function getUserLocalData() {
-    // Obtiene el usuario local
-    const userData = localStorage.getItem('user');
-    return userData ? JSON.parse(userData) : null;
+  // Obtiene el usuario local
+  const userData = localStorage.getItem('user');
+  return userData ? JSON.parse(userData) : null;
 }
 
 async function updateUserLocalData() {
-    const userId = localStorage.getItem('userId');
-    const url = `'${rutalocal}/api/user/'${userId}`;
+  const userId = localStorage.getItem('userId');
+  const url = 'http://167.71.97.221:8080/api/user/' + userId;
+
     const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
 
     if (!response.ok) {
-        throw new Error('Error al obtener los datos del usuario');
+      throw new Error('Error al obtener los datos del usuario');
     }
     const user = await response.json();
     localStorage.setItem('user', JSON.stringify(user));
@@ -26,96 +24,95 @@ async function updateUserLocalData() {
 }
 
 
-document.getElementById('aperturarCuenta').addEventListener('click', async () => {
+document.getElementById('aperturarCuenta').addEventListener('click',async ()=>{
 
-    const user = getUserLocalData();
+  const user = getUserLocalData();
 
-    await htmlAjax('nueva-cuenta.html', 'info');
+  await htmlAjax('nueva-cuenta.html', 'info');
+  
 
-
-    document.getElementById('numero-documento').value = user.numIdentification;
-    document.getElementById('nombres').value = user.firstName;
-    document.getElementById('apellidos').value = user.lastName;
-    document.getElementById('celular').value = user.phone;
-    document.getElementById('fecha-nacimiento').value = user.birthDate;
+      document.getElementById('numero-documento').value = user.numIdentification;
+      document.getElementById('nombres').value = user.firstName;
+      document.getElementById('apellidos').value = user.lastName;
+      document.getElementById('celular').value = user.phone;
+      document.getElementById('fecha-nacimiento').value = user.birthDate;
 
 });
 
-document.getElementById('suspenderCuenta').addEventListener('click', async () => {
-    function populateAccountSelect() {
+document.getElementById('suspenderCuenta').addEventListener('click',async ()=>{
+    function  populateAccountSelect() {
         const user = getUserLocalData();
-
+        
         if (user && user.bankAccounts) {
-            const accountSelect = document.getElementById('accountSelect');
-
-            user.bankAccounts.forEach(account => {
-                const option = document.createElement('option');
-                option.value = account.id;
-                option.textContent = `Cuenta: ${account.accountNumber} - Saldo: ${account.balance} - Estado: ${account.status}`;
-                if (account.status === 'ACTIVE') {
-                    accountSelect.appendChild(option);
-                }
-            });
+          const accountSelect = document.getElementById('accountSelect');
+          
+          user.bankAccounts.forEach(account => {
+            const option = document.createElement('option');
+            option.value = account.id;
+            option.textContent = `Cuenta: ${account.accountNumber} - Saldo: ${account.balance} - Estado: ${account.status}`;
+            if (account.status === 'ACTIVE') {
+              accountSelect.appendChild(option);
+            }
+          });
         } else {
-            console.error('No se encontraron cuentas bancarias para el usuario.');
+          console.error('No se encontraron cuentas bancarias para el usuario.');
         }
-    }
+      }
 
     await htmlAjax('suspender-cuenta.html', 'info');
     populateAccountSelect();
-
+    
 });
 
-document.getElementById('reactivarCuenta').addEventListener('click', async () => {
-    function populateAccountSelect() {
-        const user = getUserLocalData();
+document.getElementById('reactivarCuenta').addEventListener('click',async ()=>{
+  function populateAccountSelect() {
+      const user = getUserLocalData();
+      
+      if (user && user.bankAccounts) {
+        const accountSelect = document.getElementById('accountSelect');
+        
+        user.bankAccounts.forEach(account => {
+          const option = document.createElement('option');
+          option.value = account.id;
+          option.textContent = `Cuenta: ${account.accountNumber} - Saldo: ${account.balance} - Estado: ${account.status}`;
+            if (account.status === 'SUSPENDIDA') {
+              accountSelect.appendChild(option);
+            }
+            
 
-        if (user && user.bankAccounts) {
-            const accountSelect = document.getElementById('accountSelect');
-
-            user.bankAccounts.forEach(account => {
-                const option = document.createElement('option');
-                option.value = account.id;
-                option.textContent = `Cuenta: ${account.accountNumber} - Saldo: ${account.balance} - Estado: ${account.status}`;
-                if (account.status === 'SUSPENDIDA') {
-                    accountSelect.appendChild(option);
-                }
-
-
-            });
-        } else {
-            console.error('No se encontraron cuentas bancarias para el usuario.');
-        }
+        });
+      } else {
+        console.error('No se encontraron cuentas bancarias para el usuario.');
+      }
     }
 
-    await htmlAjax('reactivar-cuenta.html', 'info');
+  await htmlAjax('reactivar-cuenta.html', 'info');
 
-    populateAccountSelect();
-
+      populateAccountSelect();
+  
 });
 
-document.getElementById('cerrarCuenta').addEventListener('click', async () => {
-    function populateAccountSelect() {
-        const user = getUserLocalData();
-
-        if (user && user.bankAccounts) {
-            const accountSelect = document.getElementById('accountSelect');
-
-            user.bankAccounts.forEach(account => {
-                const option = document.createElement('option');
-                option.value = account.id;
-                option.textContent = `Cuenta: ${account.accountNumber} - Saldo: ${account.balance} - Estado: ${account.status}`;
-
-                if (account.status != 'CERRADA') {
-                    accountSelect.appendChild(option);
-                }
-            });
-        } else {
-            console.error('No se encontraron cuentas bancarias para el usuario.');
-        }
+document.getElementById('cerrarCuenta').addEventListener('click', async ()=>{
+  function populateAccountSelect() {
+      const user = getUserLocalData();
+      
+      if (user && user.bankAccounts) {
+        const accountSelect = document.getElementById('accountSelect');
+        
+        user.bankAccounts.forEach(account => {
+          const option = document.createElement('option');
+          option.value = account.id;
+          option.textContent = `Cuenta: ${account.accountNumber} - Saldo: ${account.balance} - Estado: ${account.status}`;
+              
+          if (account.status != 'CERRADA') {
+            accountSelect.appendChild(option);
+          }
+        });
+      } else {
+        console.error('No se encontraron cuentas bancarias para el usuario.');
+      }
     }
-
-    await htmlAjax('cerrar-cuenta.html', 'info');
+    await htmlAjax('cerrar-cuenta.html', 'info');  
     populateAccountSelect();
 });
 

@@ -1,7 +1,3 @@
-const rutalocal = '';
-const rutaserver = 'http://167.71.97.221:8080';
-
-
 document.addEventListener('DOMContentLoaded', () => {
     const registroForm = document.getElementById('registro');
     registroForm.addEventListener('submit', validateForm);
@@ -93,7 +89,7 @@ async function validateForm(event) {
         };
 
         try {
-            const response = await fetch(`${rutalocal}/api/user/register`, {
+            const response = await fetch('http://167.71.97.221:8080/api/user/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
