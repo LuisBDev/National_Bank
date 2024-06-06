@@ -1,5 +1,6 @@
 package com.nationalbank.nationalbankperu.service.impl;
 
+import com.nationalbank.nationalbankperu.model.BankAccount;
 import com.nationalbank.nationalbankperu.model.User;
 import com.nationalbank.nationalbankperu.persistence.IUserDAO;
 import com.nationalbank.nationalbankperu.service.IUserService;
@@ -54,4 +55,6 @@ public class UserServiceImpl implements IUserService {
     public User findByNumIdentification(String numIdentification) {
         return userDAO.findByNumIdentification(numIdentification);
     }
+
+
 }

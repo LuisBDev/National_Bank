@@ -1,5 +1,6 @@
 package com.nationalbank.nationalbankperu.controller;
 
+import com.nationalbank.nationalbankperu.model.BankAccount;
 import com.nationalbank.nationalbankperu.model.User;
 import com.nationalbank.nationalbankperu.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,13 @@ public class UserController {
         }
 
 
+    }
+
+    @GetMapping("/bankAccounts/{user_id}")
+    public List<BankAccount> findBankAccountsById(@PathVariable Long user_id) {
+
+        User user = userService.findById(user_id);
+        return user.getBankAccounts();
     }
 
 

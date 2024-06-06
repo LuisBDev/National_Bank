@@ -1,4 +1,4 @@
-const rutalocal = 'http://localhost:8080';
+const rutalocal = '';
 const rutaserver = 'http://167.71.97.221:8080';
 
 document.addEventListener('DOMContentLoaded', () => {

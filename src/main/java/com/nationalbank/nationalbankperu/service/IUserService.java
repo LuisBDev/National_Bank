@@ -1,5 +1,6 @@
 package com.nationalbank.nationalbankperu.service;
 
+import com.nationalbank.nationalbankperu.model.BankAccount;
 import com.nationalbank.nationalbankperu.model.User;
 
 import java.util.List;

@@ -1,5 +1,6 @@
 package com.nationalbank.nationalbankperu.persistence.impl;
 
+import com.nationalbank.nationalbankperu.model.BankAccount;
 import com.nationalbank.nationalbankperu.model.User;
 import com.nationalbank.nationalbankperu.persistence.IUserDAO;
 import com.nationalbank.nationalbankperu.repository.IUserRepository;

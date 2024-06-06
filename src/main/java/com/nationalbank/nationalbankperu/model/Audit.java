@@ -19,12 +19,12 @@ public class Audit {
     private LocalDateTime updatedAt;
 
 
-    @PostPersist
+    @PrePersist
     public void postPersist() {
         this.createdAt = LocalDateTime.now();
     }
 
-    @PostUpdate
+    @PreUpdate
     public void postUpdate() {
         this.updatedAt = LocalDateTime.now();
     }

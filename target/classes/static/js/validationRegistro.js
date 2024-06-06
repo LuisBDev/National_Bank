@@ -1,4 +1,4 @@
-const rutalocal = 'http://localhost:8080';
+const rutalocal = '';
 const rutaserver = 'http://167.71.97.221:8080';
 
 
@@ -91,7 +91,7 @@ async function validateForm(event) {
             birthDate: fechaNacimiento,
             password: password
         };
-        
+
         try {
             const response = await fetch(`${rutalocal}/api/user/register`, {
                 method: 'POST',
