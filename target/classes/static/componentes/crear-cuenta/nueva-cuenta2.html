@@ -93,7 +93,7 @@
                 throw new Error('Login failed');
             }
             await updateUserLocalData();
-            await htmlAjax('nueva-cuenta3.html', 'info');
+            await cargarComponente('./componentes/crear-cuenta/nueva-cuenta3.html', 'info');
 
         } else {
             if (pin !== confirmarPin) {

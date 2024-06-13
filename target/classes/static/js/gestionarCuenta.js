@@ -28,7 +28,7 @@ document.getElementById('aperturarCuenta').addEventListener('click',async ()=>{
 
   const user = getUserLocalData();
 
-  await htmlAjax('nueva-cuenta.html', 'info');
+  await cargarComponente('./componentes/crear-cuenta/nueva-cuenta.html', 'info');
   
 
       document.getElementById('numero-documento').value = user.numIdentification;
@@ -59,7 +59,7 @@ document.getElementById('suspenderCuenta').addEventListener('click',async ()=>{
         }
       }
 
-    await htmlAjax('suspender-cuenta.html', 'info');
+    await cargarComponente('./componentes/suspender-cuenta/suspender-cuenta.html', 'info');
     populateAccountSelect();
     
 });
@@ -86,7 +86,7 @@ document.getElementById('reactivarCuenta').addEventListener('click',async ()=>{
       }
     }
 
-  await htmlAjax('reactivar-cuenta.html', 'info');
+  await cargarComponente('./componentes/reactivar-cuenta/reactivar-cuenta.html', 'info');
 
       populateAccountSelect();
   
@@ -112,7 +112,7 @@ document.getElementById('cerrarCuenta').addEventListener('click', async ()=>{
         console.error('No se encontraron cuentas bancarias para el usuario.');
       }
     }
-    await htmlAjax('cerrar-cuenta.html', 'info');  
+    await cargarComponente('./componentes/cerrar-cuenta/cerrar-cuenta.html', 'info');  
     populateAccountSelect();
 });
 

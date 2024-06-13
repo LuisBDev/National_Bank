@@ -1,9 +1,9 @@
 <div id="confirmationDialog">
     <p>Digite su clave web</p>
-    <input type="password" name="" id="pin" placeholder="clave web">
+    <input type="password" id="webKey" placeholder="clave web">
     <div class="button-group">
-        <button id="noButton" onclick="window.location.href='gestionar-cuenta.html'">Volver</button>
-        <button id="suspender-cuenta2">Continuar</button>
+        <button id="noButton" href="#" onclick="window.location.href='gestionar-cuenta.html'">No</button>
+        <button id="cerrar-cuenta2" href="#">Sí</button>
     </div>
 </div>
 
@@ -47,12 +47,12 @@
     border: 1px solid #007BFF;
 }
 
-#suspender-cuenta2 {
+#cerrar-cuenta2 {
     background-color: #007BFF;
     color: white;
 }
 
-#noButton:hover, #suspender-cuenta2:hover {
+#noButton:hover, #cerrar-cuenta2:hover {
     background-color: #0056b3;
     color: white;
     border-color: transparent;
@@ -61,17 +61,19 @@
 
 
 </style>
+
 <script>
-    document.getElementById('suspender-cuenta2').addEventListener('click', async ()=>{
-        const user = getUserLocalData();
+    document.getElementById('cerrar-cuenta2').addEventListener('click',()=>{
+        password=localStorage.getItem('userPassword');
+        webKey = document.getElementById('webKey').value;
 
-        if (user.password == document.getElementById('pin').value) {
-            await htmlAjax('suspender-cuenta3.html','info');
+        if (webKey === password){
+            cargarComponente('./componentes/cerrar-cuenta/cerrar-cuenta3.html', 'info');
         } else {
-            if (document.getElementById('pin').value == '') {
-                alert('Debe ingresar una clave');
-            } else alert('Clave incorrecta');
+            if (webKey == ''){
+                alert('Ingrese su clave web');
+            } else 
+                alert('Clave web incorrecta');
         }
-    });
-
+    })
 </script>

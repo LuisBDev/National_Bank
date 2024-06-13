@@ -83,7 +83,7 @@
 
         if (webKey == password){
             localStorage.setItem('cuentaReactivar', cuentaReactivar);
-            htmlAjax('reactivar-cuenta2.html','info');
+            cargarComponente('./componentes/reactivar-cuenta/reactivar-cuenta2.html','info');
         } else {
             if (webKey == ''){
                 alert('Ingrese su clave web');

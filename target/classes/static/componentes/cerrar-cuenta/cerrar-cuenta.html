@@ -6,8 +6,9 @@
 
         <select id="motivo-select">
             <option value="">Indique el motivo...</option>
-            <option value="1">Motiv 1</option>
-            <option value="2">Motivo 2</option>
+            <option value="1">Perdida/hurto de tarjeta</option>
+            <option value="2">Sospecha de fraude</option>
+            <option value="2">Otros</option>
         </select>
         <textarea name="textarea" id="textarea" placeholder="Describa brevemente"></textarea>
         <button  type="reset" id="cerrar-cuenta">Cerrar</button>
@@ -78,7 +79,7 @@
         
         const cuentaCerrar = document.getElementById('accountSelect').value;
         localStorage.setItem('cuentaCerrar', cuentaCerrar);
-        htmlAjax('cerrar-cuenta2.html', 'info');
+        cargarComponente('./componentes/cerrar-cuenta/cerrar-cuenta2.html', 'info');
 
 
     });
