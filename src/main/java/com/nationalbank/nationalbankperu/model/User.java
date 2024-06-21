@@ -21,7 +21,7 @@ public class User {
     private Audit audit = new Audit();
 
     //@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @OneToMany(orphanRemoval = true)
+    @OneToMany(orphanRemoval = true, mappedBy = "user")
     private List<BankAccount> bankAccounts;
 
 

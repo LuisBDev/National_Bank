@@ -53,8 +53,13 @@ public class TransactionServiceImpl implements ITransactionService {
     @Transactional
     public String performTransaction(Long id, Transaction transaction) {
 
-        BankAccount fromAccount = bankAccountDAO.findByAccountNumber(transaction.getFromAccount());
-        BankAccount toAccount = bankAccountDAO.findByAccountNumber(transaction.getToAccount());
+
+        String fromAccountNumber = transaction.getFromAccount().getAccountNumber();
+        String toAccountNumber = transaction.getToAccount().getAccountNumber();
+
+        BankAccount fromAccount = bankAccountDAO.findByAccountNumber(fromAccountNumber);
+        BankAccount toAccount = bankAccountDAO.findByAccountNumber(toAccountNumber);
+
 
         String msg = "";
 
@@ -72,6 +77,8 @@ public class TransactionServiceImpl implements ITransactionService {
             bankAccountDAO.save(toAccount);
 
             //Persistiendo la transacción
+            transaction.setFromAccount(fromAccount);
+            transaction.setToAccount(toAccount);
             transaction.setTransactionDate(LocalDateTime.now());
             transactionDAO.save(transaction);
             msg = "Transaction performed successfully!";

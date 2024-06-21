@@ -50,9 +50,7 @@ public class BankAccountController {
         bankAccount.setStatus("ACTIVE");
         bankAccount.setAccountNumber(generateAccountNumber());
         bankAccount.setBalance(new BigDecimal(80000));
-
-
-//        bankAccount.setUser(user);
+        bankAccount.setUser(user);
 
         bankAccountService.save(bankAccount);
         user.getBankAccounts().add(bankAccount);

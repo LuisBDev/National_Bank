@@ -1,15 +1,15 @@
 package com.nationalbank.nationalbankperu.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -29,15 +29,24 @@ public class BankAccount {
     @Column(nullable = false)
     private BigDecimal balance;
 
-//    @Column(nullable = false)
-//    private LocalDate openingDate;
 
     @Column(nullable = false)
     private String status;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id", nullable = false)
-//    private User user;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "fromAccount", orphanRemoval = true)
+    @JsonIgnore
+    private List<Transaction> transactionsFrom;
+
+    @OneToMany(mappedBy = "toAccount", orphanRemoval = true)
+    @JsonIgnore
+    private List<Transaction> transactionsTo;
+
 
     @Override
     public String toString() {

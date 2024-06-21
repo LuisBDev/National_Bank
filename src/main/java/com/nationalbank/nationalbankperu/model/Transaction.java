@@ -21,14 +21,20 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "from_account_id")
+    private BankAccount fromAccount;
 
-    private String fromAccount;
+    @ManyToOne
+    @JoinColumn(name = "to_account_id")
+    private BankAccount toAccount;
 
-    private String toAccount;
 
     @Column(nullable = false)
     private BigDecimal amount;
 
     @Column(nullable = false)
     private LocalDateTime transactionDate;
+
+
 }
