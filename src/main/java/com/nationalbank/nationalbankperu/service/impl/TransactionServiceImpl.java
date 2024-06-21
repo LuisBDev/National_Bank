@@ -81,7 +81,7 @@ public class TransactionServiceImpl implements ITransactionService {
             transaction.setToAccount(toAccount);
             transaction.setTransactionDate(LocalDateTime.now());
             transactionDAO.save(transaction);
-            msg = "Transaction performed successfully!";
+            msg = "Transaction performed successfully! con monto: " + transaction.getAmount() + " y fecha: " + transaction.getTransactionDate();
         } else {
             msg = "You are not authorized to perform this transaction!";
         }
