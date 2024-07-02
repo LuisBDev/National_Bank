@@ -1,5 +1,6 @@
 package com.nationalbank.nationalbankperu.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,7 +37,13 @@ public class ServicePayment {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "bank_account_id", nullable = false)
+//    @JsonIgnore
+    private BankAccount bankAccount;
 
 
 }

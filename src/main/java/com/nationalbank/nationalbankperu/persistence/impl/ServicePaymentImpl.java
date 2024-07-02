@@ -1,5 +1,6 @@
 package com.nationalbank.nationalbankperu.persistence.impl;
 
+import com.nationalbank.nationalbankperu.model.BankAccount;
 import com.nationalbank.nationalbankperu.model.ServicePayment;
 import com.nationalbank.nationalbankperu.persistence.IServicePaymentDAO;
 import com.nationalbank.nationalbankperu.repository.IServicePaymentRepository;
@@ -33,4 +34,6 @@ public class ServicePaymentImpl implements IServicePaymentDAO {
     public void deleteById(Long id) {
         servicePaymentRepository.deleteById(id);
     }
+
+
 }

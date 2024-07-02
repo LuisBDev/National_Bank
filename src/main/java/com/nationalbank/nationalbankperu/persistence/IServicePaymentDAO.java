@@ -1,5 +1,6 @@
 package com.nationalbank.nationalbankperu.persistence;
 
+import com.nationalbank.nationalbankperu.model.BankAccount;
 import com.nationalbank.nationalbankperu.model.ServicePayment;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,5 @@ public interface IServicePaymentDAO {
     List<ServicePayment> findAll();
 
     void deleteById(Long id);
-
 
 }
