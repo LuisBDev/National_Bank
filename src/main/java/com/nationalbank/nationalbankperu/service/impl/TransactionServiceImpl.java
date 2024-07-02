@@ -51,7 +51,7 @@ public class TransactionServiceImpl implements ITransactionService {
 
     @Override
     @Transactional
-    public String performTransaction(Long id, Transaction transaction) {
+    public void performTransaction(Long id, Transaction transaction) {
 
 
         String fromAccountNumber = transaction.getFromAccount().getAccountNumber();
@@ -60,8 +60,6 @@ public class TransactionServiceImpl implements ITransactionService {
         BankAccount fromAccount = bankAccountDAO.findByAccountNumber(fromAccountNumber);
         BankAccount toAccount = bankAccountDAO.findByAccountNumber(toAccountNumber);
 
-
-        String msg = "";
 
         validateAccountAndTransaction(transaction, fromAccount, toAccount);
 
@@ -81,12 +79,8 @@ public class TransactionServiceImpl implements ITransactionService {
             transaction.setToAccount(toAccount);
             transaction.setTransactionDate(LocalDateTime.now());
             transactionDAO.save(transaction);
-            msg = "Transaction performed successfully! con monto: " + transaction.getAmount() + " y fecha: " + transaction.getTransactionDate();
-        } else {
-            msg = "You are not authorized to perform this transaction!";
-        }
 
-        return msg;
+        }
     }
 
     //Verificando que el usuario sea el dueño de la cuenta para realizar la transacción

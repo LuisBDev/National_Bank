@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -36,14 +37,13 @@ public class TransactionController {
 
     @PostMapping("/transfer/{id}")
     public ResponseEntity<?> performTransaction(@PathVariable Long id, @RequestBody Transaction transaction) {
-//        try {
-//            transactionService.performTransaction(id, transaction);
-//            return ResponseEntity.ok("Transaction performed successfully!");
-//        } catch (IllegalArgumentException e) {
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        }
-        String result = transactionService.performTransaction(id, transaction);
-        return ResponseEntity.ok(result);
+
+        try {
+            transactionService.performTransaction(id, transaction);
+            return ResponseEntity.ok("Transaction con el monto de " + transaction.getAmount() + " realizada con éxito");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
 
     }
 }

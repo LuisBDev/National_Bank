@@ -14,5 +14,5 @@ public interface ITransactionService {
 
     void deleteById(Long id);
 
-    String performTransaction(Long id, Transaction transaction);
+    void performTransaction(Long id, Transaction transaction);
 }
